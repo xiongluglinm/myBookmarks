@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header></header>
+    <main>
+        <div id="mainXXX">
+
+        </div>
+    </main>
+    <footer></footer>
+
+<script>
+    keys = {
+        '0': {'0':1,'1':2,'2':3,'3':4,'4':5,'5':6,'6':7,'7':8,'8':9,'9':0,'length':10},
+        '1': {'0':'q','1':'w','2':'e','3':'r','4':'t','5':'y','6':'u','7':'i','8':'o','9':'p','length':10},
+        '2': {'0':'a','1':'s','2':'d','3':'f','4':'g','5':'h','6':'j','7':'k','8':'l','length':9},
+        '3': {'0':'z','1':'x','2':'c','3':'v','4':'b','5':'n','6':'m','length':7},
+        'length': 4
+    }
+    hash = {'q':'qq.com','w':'weibo.com','e':'ele.me','r':'renren.com'}
+        // 取出localStorage 中的 zzz 对应的 hash
+    hashInLocalStorage = JSON.parse(localStorage.getItem('zzz')||'null')
+    if (hashInLocalStorage) {
+        hash = hashInLocalStorage
+    }
+
+    index = 0
+    while(index<keys['length']){
+        divXXX = document.createElement('div')
+        mainXXX.appendChild(divXXX)
+       
+
+        row = keys[index]
+        index2 = 0
+        while(index2<row['length']){
+            kbdXXX = document.createElement('kbd')
+            kbdXXX.textContent = row[index2]
+            buttonX = document.createElement('button')
+            buttonX.textContent = '编辑'
+            buttonX.id = row[index2]
+            buttonX.onclick = function(dcve){
+                key2 = dcve['target']['id']
+                x = prompt('允许你输入一个网址')
+                hash[key2] = x
+                // console.log(dcve)
+                localStorage.setItem('zzz',JSON.stringify(hash))
+                console.log(hash)
+            }
+            // kbdXXX.onclick = function(dcve3){
+            //     key3 = dcve3['target']['firstElementChild']['id']
+            //     console.log(key3)
+            //     console.log(dcve3['target']['firstElementChild']['id'])
+            // }
+            kbdXXX.appendChild(buttonX)
+            divXXX.appendChild(kbdXXX)
+            index2 = index2 + 1
+        }
+        index = index + 1
+    }
+    document.onkeypress = function(wbtrw){
+        var key = wbtrw['key']
+        var websit = hash[key]
+        window.open('http://'+websit,'_blank')
+    }
+</script>
+</body>
+</html>

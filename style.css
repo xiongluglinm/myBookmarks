@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#mainXXX div{
+    text-align: center;
+}
+#mainXXX div kbd{
+    border: 1px solid red;
+    width: 4em;
+    height: 4em;
+    line-height: 4em;
+    /* vertical-align: bottom; */
+    display: inline-block;
+    text-transform: uppercase;
+    position: relative;
+}
+#mainXXX div kbd button{
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    display: none;
+}
+#mainXXX div kbd:hover button{
+    display: inline;
+}
