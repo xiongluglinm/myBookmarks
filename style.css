@@ -2,25 +2,72 @@
     margin: 0;
     padding: 0;
 }
-#mainXXX div{
-    text-align: center;
+body{
+    background: darkgrey url(./image/wall.jpg) no-repeat center center;
+    background-size: cover;
 }
-#mainXXX div kbd{
-    border: 1px solid red;
-    width: 4em;
-    height: 4em;
-    line-height: 4em;
-    /* vertical-align: bottom; */
+main .wrap{
+    /* display: inline-block; */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    
+}
+#mainXXX{
     display: inline-block;
+    padding-right: 25px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+}
+#mainXXX div:nth-child(2){
+    padding-left: 70px;
+}
+#mainXXX div:nth-child(3){
+    padding-left: 70px;
+}
+#mainXXX div:nth-child(4){
+    padding-right: 30px;
+}
+
+#mainXXX div .key{
     text-transform: uppercase;
     position: relative;
+    width: 72px;
+    height: 51px;
+    border: 1px solid #343434;
+    margin: 10px 10px;
+    border-radius: 5px; 
+    background: linear-gradient(to bottom, rgba(41,41,41,1) 0%, rgba(17,17,17,1) 100%);
+    color: #cfcfcf;
+    box-shadow: 0 0 0 1px #1a1b1c, 0 0 0 2px #1f1f20,0 1px 0 2px #131313,0 2px 0 2px #080808,0 3px 0 2px #000000,0 5px 1px 0 #121213;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Helvetica;
 }
-#mainXXX div kbd button{
+#mainXXX div .key button{
     position: absolute;
     right: 0px;
     bottom: 0px;
     display: none;
 }
-#mainXXX div kbd:hover button{
+#mainXXX div .key:hover button{
     display: inline;
+    border-radius: 3px;
+}
+#mainXXX div .key img{
+    width: 16px;
+    height: 16px;
+    border: none;
+    /* background-color: #cfcfcf; */
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+}
+#mainXXX div .key span{
+    position: absolute;
+    left: 4px;
+    top: 4px;
 }

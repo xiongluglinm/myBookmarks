@@ -10,65 +10,137 @@
 <body>
     <header></header>
     <main>
-        <div id="mainXXX">
-
+        <div class="wrap">
+            <div id="mainXXX">
+                
+            </div>
         </div>
     </main>
     <footer></footer>
 
 <script>
-    keys = {
+//初始化数据
+    var initData = init()
+    keys = initData['keys']
+    hash = initData['hash']
+//生成 keyboard
+//遍历 keys 生成 kbd
+    generateKeyboard(keys,hash)
+
+//监听用户操作
+    listenToUsers(hash)
+
+// 下面都是工具函数
+    function getFromLocalStorage(name){
+        return JSON.parse(localStorage.getItem(name)||'null')
+    }
+    function init(){
+        var keys = {
         '0': {'0':1,'1':2,'2':3,'3':4,'4':5,'5':6,'6':7,'7':8,'8':9,'9':0,'length':10},
         '1': {'0':'q','1':'w','2':'e','3':'r','4':'t','5':'y','6':'u','7':'i','8':'o','9':'p','length':10},
         '2': {'0':'a','1':'s','2':'d','3':'f','4':'g','5':'h','6':'j','7':'k','8':'l','length':9},
         '3': {'0':'z','1':'x','2':'c','3':'v','4':'b','5':'n','6':'m','length':7},
         'length': 4
-    }
-    hash = {'q':'qq.com','w':'weibo.com','e':'ele.me','r':'renren.com'}
-        // 取出localStorage 中的 zzz 对应的 hash
-    hashInLocalStorage = JSON.parse(localStorage.getItem('zzz')||'null')
-    if (hashInLocalStorage) {
-        hash = hashInLocalStorage
-    }
-
-    index = 0
-    while(index<keys['length']){
-        divXXX = document.createElement('div')
-        mainXXX.appendChild(divXXX)
-       
-
-        row = keys[index]
-        index2 = 0
-        while(index2<row['length']){
-            kbdXXX = document.createElement('kbd')
-            kbdXXX.textContent = row[index2]
-            buttonX = document.createElement('button')
-            buttonX.textContent = '编辑'
-            buttonX.id = row[index2]
-            buttonX.onclick = function(dcve){
-                key2 = dcve['target']['id']
-                x = prompt('允许你输入一个网址')
-                hash[key2] = x
-                // console.log(dcve)
-                localStorage.setItem('zzz',JSON.stringify(hash))
-                console.log(hash)
-            }
-            // kbdXXX.onclick = function(dcve3){
-            //     key3 = dcve3['target']['firstElementChild']['id']
-            //     console.log(key3)
-            //     console.log(dcve3['target']['firstElementChild']['id'])
-            // }
-            kbdXXX.appendChild(buttonX)
-            divXXX.appendChild(kbdXXX)
-            index2 = index2 + 1
         }
-        index = index + 1
+        var hash = {'q':'qq.com','w':'weibo.com','e':'ele.me','r':'renren.com'}
+            // 取出localStorage 中的 zzz 对应的 hash
+        var hashInLocalStorage = getFromLocalStorage('zzz')
+
+        if (hashInLocalStorage) {
+            hash = hashInLocalStorage
+        }
+        var initData = {
+            'keys': keys,
+            'hash': hash
+        }
+        return initData
     }
-    document.onkeypress = function(wbtrw){
-        var key = wbtrw['key']
-        var websit = hash[key]
-        window.open('http://'+websit,'_blank')
+
+    function tag(tagName){
+        return document.createElement(tagName)
     }
+    function createSpan(textContent){
+        var spanX = tag('span')
+        spanX.textContent = textContent
+        return spanX
+    }
+    function createImg(domain){
+        var imgXXX = tag('img')
+        if (domain) {
+            imgXXX.src = 'http://'+domain+'/favicon.ico'
+        }else{
+            imgXXX.src = "https://upload-images.jianshu.io/upload_images/11321699-30edf8d062ba0e6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/201"
+        }
+        imgXXX.onerror = function(jgt){
+            // console.log("错误")
+            // console.log(imgXXX)
+            jgt.target.src = "https://upload-images.jianshu.io/upload_images/11321699-30edf8d062ba0e6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/201"
+
+        }
+        return imgXXX
+    }
+    function createButton(id){
+        var buttonX = tag('button')
+        buttonX.textContent = '编辑'
+        buttonX.id = id
+        buttonX.onclick = function(dcve){
+            var button2 = dcve['target']
+            var key2 = button2['id']
+            var img2 = button2.previousSibling
+            console.log(img2)
+            var x = prompt('允许你输入一个网址')
+            hash[key2] = x
+            console.log(dcve)
+            localStorage.setItem('zzz',JSON.stringify(hash)) //将输入的网址保存在浏览器上，以字符串的方式
+            // console.log(hash)
+            if (hash[key2]) {
+                img2.src = 'http://'+hash[key2]+'/favicon.ico'
+            }else{
+                img2.src = "https://upload-images.jianshu.io/upload_images/11321699-30edf8d062ba0e6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/201"
+            }
+            img2.onerror = function(jgt2){
+                // console.log("错误")
+                // console.log(imgXXX)
+            jgt2.target.src = "https://upload-images.jianshu.io/upload_images/11321699-30edf8d062ba0e6a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/201"
+
+            }
+        }
+        return buttonX
+    }
+    function createKbd(spanX,imgXXX,buttonX){
+        var kbdXXX = tag('kbd')
+        kbdXXX.className = 'key'
+        kbdXXX.appendChild(spanX)
+        kbdXXX.appendChild(imgXXX)
+        kbdXXX.appendChild(buttonX)
+        return kbdXXX
+    }
+    function generateKeyboard(keys,hash){
+        //生成 keyboard
+        //遍历 keys 生成 kbd
+        for(var index = 0;index<keys['length'];index = index + 1){
+            var divXXX = tag('div')
+            mainXXX.appendChild(divXXX)
+        
+            var row = keys[index]
+            
+            for(var index2 = 0;index2<row['length'];index2 = index2 + 1){
+                var spanX = createSpan(row[index2])
+                var imgXXX = createImg(hash[row[index2]])
+                var buttonX = createButton(row[index2])
+                var kbdXXX = createKbd(spanX,imgXXX,buttonX)
+                divXXX.appendChild(kbdXXX)           
+            }       
+        }
+    }
+    function listenToUsers(hash){
+        document.onkeypress = function(wbtrw){
+            var key = wbtrw['key']
+            var websit = hash[key]
+            window.open('http://'+websit,'_blank')
+        }
+    }
+
 </script>
 </body>
 </html>
